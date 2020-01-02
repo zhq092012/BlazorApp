@@ -1,0 +1,70 @@
+﻿@model PPSL.Web.Models.MovieGenreViewModel
+
+@{
+  ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+  <a asp-action="Create">Create New</a>
+</p>
+<form asp-controller="Movie" asp-action="Index" method="get">
+  <p>
+    <select asp-for="MovieGenre" asp-items="Model.Genres">
+      <option value="">All</option>
+    </select>
+    title:<input type="text" asp-for="SearchString" />
+    <input type="submit" value="查找" />
+  </p>
+</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        @*DisplayNameFor HTML 帮助程序检查 Lambda 表达式中引用的 Title 属性来确定显示名称。 由于只检查但未计算 Lambda 表达式，因此当 model、model.Movies[0] 或 model.Movies 为 null 或空时，你不会收到访问冲突。 *@
+        @Html.DisplayNameFor(model => model.Movies[0].Title)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Movies[0].ReleaseDate)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Movies[0].Genre)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Movies[0].Price)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model=>model.Movies[0].Rating)
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model.Movies)
+    {
+    <tr>
+      <td>
+        @Html.DisplayFor(modelItem => item.Title)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.ReleaseDate)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.Genre)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.Price)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.Rating)
+      </td>
+      <td>
+        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
